@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
+
+import com.google.gson.Gson;
 
 public class OpenWeatherApp extends Application {
     @Override
@@ -52,7 +55,7 @@ public class OpenWeatherApp extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        String city = "Vienna";
+        var city = "Vienna";
         String apiKey = "f3d7db6b1cfc8feb58ded26985994224";
         String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city, apiKey);
         URL url = new URL(urlString);
@@ -68,14 +71,14 @@ public class OpenWeatherApp extends Application {
         }
         in.close();
 
-        System.out.println(response.toString());
+        System.out.println(response);
 
-/*        String jsonString = "{\"key\":\"value\"}";
-        JSONObject json = new JSONObject(jsonString);
+        Gson gson = new Gson();
 
-        // Extract a value from the JSON object
-        String value = json.getString("key");
-        System.out.println(value);  // prints "value"*/
+        Map<String, String> map = gson.fromJson(response.toString(), Map.class);
+        Map result = gson.fromJson(response.toString(), Map.class);
+        System.out.println(map.get("main"));
+
         launch();
     }
 }
