@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.openweathermap.OpenWeatherController">
+   <children>
+      <TextField fx:id="textfieldCity" layoutX="189.0" layoutY="38.0" />
+      <TextField fx:id="textfieldTemperature" layoutX="189.0" layoutY="77.0" />
+      <TextField fx:id="textfieldPrecipitation" layoutX="189.0" layoutY="117.0" />
+      <TextField fx:id="textfieldHumidity" layoutX="189.0" layoutY="154.0" />
+      <Label fx:id="labelCity" layoutX="124.0" layoutY="42.0" text="Stadt" />
+      <Label fx:id="labelTemp" layoutX="87.0" layoutY="81.0" text="Temperatur" />
+      <Label fx:id="labelPreci" layoutX="83.0" layoutY="117.0" text="Niederschlag" />
+      <Label fx:id="labelHumi" layoutX="68.0" layoutY="158.0" text="Luftfeuchtigkeit" />
+      <TextArea fx:id="textareaLog" layoutX="386.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="386.0" layoutY="6.0" text="Logfile" />
+   </children>
+</Pane>
