@@ -26,15 +26,15 @@ public class TCPClient extends Application {
     @FXML
     private TextField txt_enterMessage;
     @FXML
-    private TextArea txt_log;
+    private TextArea textareaLog;
 
 
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(TCPClient.class.getResource("OpenWeather-GUI.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 300, 400);
-            stage.setTitle("OpenWeather Connection!");
+            Scene scene = new Scene(fxmlLoader.load(), 600, 300);
+            stage.setTitle("OpenWeatherMap");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e ) {
@@ -92,7 +92,7 @@ public class TCPClient extends Application {
         t.appendText(s + "\n");
     }
     public void log(String s) {
-        txt_log.appendText(s + "\n");
+        textareaLog.appendText(s + "\n");
     }
 
 }
