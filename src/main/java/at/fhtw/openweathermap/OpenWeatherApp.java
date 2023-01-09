@@ -69,6 +69,9 @@ public class OpenWeatherApp extends Application {
         in.close();
 
         System.out.println(response.toString());
+        
+        JSONObject map = new JSONObject(response.toString());
+        System.out.println(map.getJSONObject("main").getDouble("temp"));
 
 /*        String jsonString = "{\"key\":\"value\"}";
         JSONObject json = new JSONObject(jsonString);
