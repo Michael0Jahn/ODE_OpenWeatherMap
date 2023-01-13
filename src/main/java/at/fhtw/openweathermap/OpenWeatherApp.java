@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
-
-import com.google.gson.Gson;
+import org.json.JSONObject;
 
 public class OpenWeatherApp extends Application {
     @Override
@@ -55,9 +53,9 @@ public class OpenWeatherApp extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        var city = "Vienna";
+        String city = "Vienna";
         String apiKey = "f3d7db6b1cfc8feb58ded26985994224";
-        String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city, apiKey);
+        String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=%s", city, apiKey);
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -73,12 +71,19 @@ public class OpenWeatherApp extends Application {
 
         System.out.println(response);
 
-        Gson gson = new Gson();
+        JSONObject map = new JSONObject(response.toString());
+        System.out.println("Temperature: " + map.getJSONObject("main").getDouble("temp") + "C");
+        System.out.println("humidity: " + map.getJSONObject("main").getDouble("humidity")+"%");
+        //if we ever need data out of the array this is the way
+        //System.out.println("humidity: " + map.getJSONArray("weather").getJSONObject(0).getString("main"));
 
-        Map<String, String> map = gson.fromJson(response.toString(), Map.class);
-        Map result = gson.fromJson(response.toString(), Map.class);
-        System.out.println(map.get("main"));
 
+/*        String jsonString = "{\"key\":\"value\"}";
+        JSONObject json = new JSONObject(jsonString);
+
+        // Extract a value from the JSON object
+        String value = json.getString("key");
+        System.out.println(value);  // prints "value" */
         launch();
     }
 }
