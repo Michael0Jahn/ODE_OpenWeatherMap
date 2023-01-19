@@ -1,5 +1,6 @@
 package at.fhtw.openweathermap;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -38,4 +39,7 @@ public class OpenWeatherController {
     @FXML
     private Label labelTemp;
 
+    public void sendRequest(ActionEvent actionEvent) {
+
+    }
 }

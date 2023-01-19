@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.Socket;
@@ -27,6 +28,12 @@ public class TCPClient extends Application {
     private TextField txt_enterMessage;
     @FXML
     private TextArea textareaLog;
+    @FXML
+    private TextArea textfieldCity;
+    @FXML
+    private TextArea textfieldHumidity;
+    @FXML
+    private TextArea textfieldTemperature;
 
 
     @Override
@@ -64,15 +71,14 @@ public class TCPClient extends Application {
         }
     }
 
-    @FXML
+/*    @FXML
     private void sendMessage(ActionEvent event) {
         try {
             bOutputStream = client.getOutputStream();
-            sentMessage = txt_enterMessage.getText();
+            sentMessage = "send";
             bOutputStream.write(sentMessage.getBytes());
             log("Client: sent some Bytes to Server");
             log(txt_conversation, "Client: Message sent: " + sentMessage);
-            txt_enterMessage.clear();
 
             //Receive The Echo
             InputStream bInputStream = client.getInputStream();
@@ -86,7 +92,7 @@ public class TCPClient extends Application {
             e.printStackTrace();
             alert.show();
         }
-    }
+    }*/
 
     public void log(TextArea t, String s) {
         t.appendText(s + "\n");
@@ -95,4 +101,30 @@ public class TCPClient extends Application {
         textareaLog.appendText(s + "\n");
     }
 
+    public void sendRequest(ActionEvent actionEvent) {
+        try {
+            bOutputStream = client.getOutputStream();
+            sentMessage = "send";
+            bOutputStream.write(sentMessage.getBytes());
+            log("Client: sent some Bytes to Server");
+
+            //Receive The Echo
+            InputStream bInputStream = client.getInputStream();
+            byte[] b = new byte[500];
+            int bytes = bInputStream.read(b);
+            log("Client: received " + bytes + " Bytes from Server");
+            inputMessage = new String(b);
+            System.out.println(inputMessage);
+            JSONObject map = new JSONObject(inputMessage);
+            double temp = map.getJSONObject("main").getDouble("temp");
+            double humidity = map.getJSONObject("main").getDouble("humidity");
+            log(textfieldCity, "Vienna");
+            log(textfieldTemperature, "" + temp + "C");
+            log(textfieldHumidity, "" + humidity + "%");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            alert.show();
+        }
+    }
 }

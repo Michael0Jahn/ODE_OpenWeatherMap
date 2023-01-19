@@ -1,10 +1,10 @@
 package at.fhtw.openweathermap;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URL;
 
 public class TCPServer {
 
@@ -56,9 +56,25 @@ public class TCPServer {
                 inputMessage = new String(b);
                 exitMessage = inputMessage;
 
+                String city = "Vienna";
+                String apiKey = "f3d7db6b1cfc8feb58ded26985994224";
+                String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=%s", city, apiKey);
+                URL url = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
                 // Send Back Input Data to client
                 bOutputStream = socketToClient.getOutputStream();
-                sentMessage = inputMessage;
+                sentMessage = response.toString();
                 bOutputStream.write(sentMessage.getBytes() );
                 System.out.println("Server: Message from Client: " + sentMessage);
 
