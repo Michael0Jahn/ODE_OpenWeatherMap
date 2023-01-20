@@ -1,3 +1,6 @@
+/**
+ * Open Weather package
+ */
 module at.fhtw.openweathermap {
     requires javafx.controls;
     requires javafx.fxml;

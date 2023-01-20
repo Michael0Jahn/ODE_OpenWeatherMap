@@ -6,16 +6,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 
+/**
+ * TCP Server
+ */
 public class TCPServer {
-
     private static ServerSocket server;
 
+    /**
+     * Main method
+     * @param args (not used)
+     */
     public static void main(String[] args) {
         startServer();
         runServer();
     }
 
-    // Startup the server
+    /**
+     * Startup the TCP Server
+     */
     private static void startServer() {
         System.out.println("Server: starting up server");
         try {
@@ -26,7 +34,11 @@ public class TCPServer {
     }
 
 
-    // This function implements the runtime of the server
+    /**
+     * Run the TCP Server.
+     * Read data from external source via API Key and send it to the TCP Client.
+     *
+     */
     private static void runServer() {
         try {
 
@@ -56,14 +68,15 @@ public class TCPServer {
                 inputMessage = new String(b);
                 exitMessage = inputMessage;
 
+                // requests the data from an external source via API Key
                 String city = "Vienna";
                 String apiKey = "f3d7db6b1cfc8feb58ded26985994224";
                 String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=%s", city, apiKey);
                 URL url = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
+                // reads the input from the API Key
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String inputLine;
                 StringBuilder response = new StringBuilder();

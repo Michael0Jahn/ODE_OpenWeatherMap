@@ -3,20 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.openweathermap.TCPClient">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.openweathermap.TCPClient">
    <children>
-      <TextArea fx:id="textfieldCity" layoutX="189.0" layoutY="37.0" prefHeight="17.0" prefWidth="164.0" />
-      <TextArea fx:id="textfieldTemperature" layoutX="189.0" layoutY="77.0" prefHeight="0.0" prefWidth="164.0" />
-      <TextArea fx:id="textfieldPrecipitation" layoutX="189.0" layoutY="117.0" prefHeight="0.0" prefWidth="164.0" />
-      <TextArea fx:id="textfieldHumidity" layoutX="189.0" layoutY="157.0" prefHeight="0.0" prefWidth="164.0" />
-      <Label fx:id="labelCity" layoutX="136.0" layoutY="48.0" text="Stadt" />
-      <Label fx:id="labelTemp" layoutX="111.0" layoutY="88.0" text="Temperatur" />
-      <Label fx:id="labelPreci" layoutX="107.0" layoutY="128.0" text="Niederschlag" />
-      <Label fx:id="labelHumi" layoutX="100.0" layoutY="168.0" text="Luftfeuchtigkeit" />
-      <TextArea fx:id="textareaLog" layoutX="386.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextField fx:id="textfieldCity" layoutX="189.0" layoutY="37.0" prefHeight="0.0" prefWidth="164.0" />
+      <TextField fx:id="textfieldTemperature" layoutX="189.0" layoutY="77.0" prefHeight="0.0" prefWidth="164.0" />
+      <TextField fx:id="textfieldPressure" layoutX="189.0" layoutY="117.0" prefHeight="0.0" prefWidth="164.0" />
+      <TextField fx:id="textfieldHumidity" layoutX="189.0" layoutY="157.0" prefHeight="0.0" prefWidth="164.0" />
+      <Label fx:id="labelCity" layoutX="35.0" layoutY="48.0" text="Stadt" />
+      <Label fx:id="labelTemp" layoutX="35.0" layoutY="88.0" text="Temperatur" />
+      <Label fx:id="labelPress" layoutX="35.0" layoutY="126.0" text="Luftdruck" />
+      <Label fx:id="labelHumi" layoutX="35.0" layoutY="168.0" text="Luftfeuchtigkeit" />
+      <TextArea fx:id="textareaLog" layoutX="386.0" layoutY="34.0" prefHeight="200.0" prefWidth="256.0" />
       <Label layoutX="386.0" layoutY="6.0" text="Logfile" />
 
-      <Button fx:id="button" layoutX="128.0" layoutY="222.0" onAction="#sendRequest" text="Send" />
-      <Button fx:id="connectClient" layoutX="128.0" layoutY="270.0" onAction="#connectClient" text="connect" />
+      <Button fx:id="button" layoutX="36.0" layoutY="261.0" onAction="#sendRequest" text="Receive Weatherdata" />
+      <Button fx:id="connectClient" layoutX="36.0" layoutY="222.0" onAction="#connectClient" text="Connect Server" />
    </children>
 </Pane>

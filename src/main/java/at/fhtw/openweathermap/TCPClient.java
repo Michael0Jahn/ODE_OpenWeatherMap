@@ -14,33 +14,36 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * TCP Client
+ */
 public class TCPClient extends Application {
-
     private Socket client;
-    private OutputStream bOutputStream;
     private String inputMessage;
-    private String sentMessage;
-    private Alert alert = new Alert(Alert.AlertType.WARNING, "Error. That didn't work!");
+    private final Alert alert = new Alert(Alert.AlertType.WARNING, "Error. That didn't work!");
+    private static final String FILENAME = "log.txt";
+
 
     @FXML
-    private TextArea txt_conversation;
+    public TextField textfieldPressure;
     @FXML
-    private TextField txt_enterMessage;
+    private TextField textfieldCity;
+    @FXML
+    private TextField textfieldHumidity;
+    @FXML
+    private TextField textfieldTemperature;
     @FXML
     private TextArea textareaLog;
-    @FXML
-    private TextArea textfieldCity;
-    @FXML
-    private TextArea textfieldHumidity;
-    @FXML
-    private TextArea textfieldTemperature;
 
-
+    /**
+     * Loads the GUI from the defined fxml file
+     * @param stage sets the stage for the GUI
+     */
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(TCPClient.class.getResource("OpenWeather-GUI.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 300);
+            Scene scene = new Scene(fxmlLoader.load(), 650, 310);
             stage.setTitle("OpenWeatherMap");
             stage.setScene(scene);
             stage.show();
@@ -50,6 +53,10 @@ public class TCPClient extends Application {
         }
     }
 
+    /**
+     * Connect the TCP Client to the TCP Server
+     * @param event on event action connect client
+     */
     @FXML
     private void connectClient(ActionEvent event) {
         if(client == null) {
@@ -63,7 +70,6 @@ public class TCPClient extends Application {
                 int bytes = bInputStream.read(b);
                 log("Client: received " + bytes + " Bytes from Server");
                 inputMessage = new String(b);
-                //log(txt_conversation, "Antwort: " + inputMessage);
             } catch (IOException e) {
                 e.printStackTrace();
                 alert.show();
@@ -71,40 +77,14 @@ public class TCPClient extends Application {
         }
     }
 
-/*    @FXML
-    private void sendMessage(ActionEvent event) {
-        try {
-            bOutputStream = client.getOutputStream();
-            sentMessage = "send";
-            bOutputStream.write(sentMessage.getBytes());
-            log("Client: sent some Bytes to Server");
-            log(txt_conversation, "Client: Message sent: " + sentMessage);
-
-            //Receive The Echo
-            InputStream bInputStream = client.getInputStream();
-            byte[] b = new byte[12];
-            int bytes = bInputStream.read(b);
-            log("Client: received " + bytes + " Bytes from Server");
-            inputMessage = new String(b);
-            log(txt_conversation, "Server: Message received: " + inputMessage);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            alert.show();
-        }
-    }*/
-
-    public void log(TextArea t, String s) {
-        t.appendText(s + "\n");
-    }
-    public void log(String s) {
-        textareaLog.appendText(s + "\n");
-    }
-
+    /**
+     * Send request to the TCP Server
+     * @param actionEvent on event action send request to TCP Server
+     */
     public void sendRequest(ActionEvent actionEvent) {
         try {
-            bOutputStream = client.getOutputStream();
-            sentMessage = "send";
+            OutputStream bOutputStream = client.getOutputStream();
+            String sentMessage = "send";
             bOutputStream.write(sentMessage.getBytes());
             log("Client: sent some Bytes to Server");
 
@@ -118,13 +98,42 @@ public class TCPClient extends Application {
             JSONObject map = new JSONObject(inputMessage);
             double temp = map.getJSONObject("main").getDouble("temp");
             double humidity = map.getJSONObject("main").getDouble("humidity");
-            log(textfieldCity, "Vienna");
-            log(textfieldTemperature, "" + temp + "C");
-            log(textfieldHumidity, "" + humidity + "%");
+            double pressure = map.getJSONObject("main").getDouble("pressure");
+            printWeatherData(textfieldCity, "Vienna");
+            printWeatherData(textfieldTemperature, "" + temp + " °C");
+            printWeatherData(textfieldHumidity, "" + humidity + " %");
+            printWeatherData(textfieldPressure, "" + pressure + " hPa");
 
         } catch (IOException e) {
             e.printStackTrace();
             alert.show();
         }
+    }
+
+    /**
+     * Print the received Weatherdata in the textfields of the GUI.
+     * @param t Textfield of the GUI
+     * @param d Weatherdata
+     */
+    public void printWeatherData(TextField t, String d) {
+        t.setText(d);
+    }
+
+    /**
+     * Print the received data in the text log of the GUI.
+     * Print the received data in a new log file
+     * @param s data
+     */
+    public void log(String s) {
+        textareaLog.appendText(s + "\n");
+        new Thread(() -> {
+            try {
+                FileWriter fw = new FileWriter(FILENAME, true);
+                fw.write(s + "\n");
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }
