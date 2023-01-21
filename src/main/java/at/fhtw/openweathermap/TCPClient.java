@@ -55,10 +55,9 @@ public class TCPClient extends Application {
 
     /**
      * Connect the TCP Client to the TCP Server
-     * @param event on event action connect client
      */
     @FXML
-    private void connectClient(ActionEvent event) {
+    private void connectClient() {
         if(client == null) {
             try {
                 client = new Socket("localhost", 4711);
@@ -79,9 +78,8 @@ public class TCPClient extends Application {
 
     /**
      * Send request to the TCP Server
-     * @param actionEvent on event action send request to TCP Server
      */
-    public void sendRequest(ActionEvent actionEvent) {
+    public void sendRequest() {
         try {
             OutputStream bOutputStream = client.getOutputStream();
             String sentMessage = "send";
