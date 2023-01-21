@@ -1,4 +1,4 @@
-# ODE Project - BIC3 - WS2022 (Michael Jahn, Stjepan Knezevic) 
+## ODE Project - BIC3 - WS2022 (Michael Jahn, Stjepan Knezevic) 
 # OpenWeatherMap - An Application to show weather data
 
 ### Task implementation
