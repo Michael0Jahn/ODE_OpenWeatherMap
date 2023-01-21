@@ -1,7 +1,6 @@
 package at.fhtw.openweathermap;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,11 +20,11 @@ public class TCPClient extends Application {
     private Socket client;
     private String inputMessage;
     private final Alert alert = new Alert(Alert.AlertType.WARNING, "Error. That didn't work!");
-    private static final String FILENAME = "log.txt";
+    private final String FILENAME = "log.txt";
 
 
     @FXML
-    public TextField textfieldPressure;
+    private TextField textfieldPressure;
     @FXML
     private TextField textfieldCity;
     @FXML
@@ -55,10 +54,9 @@ public class TCPClient extends Application {
 
     /**
      * Connect the TCP Client to the TCP Server
-     * @param event on event action connect client
      */
     @FXML
-    private void connectClient(ActionEvent event) {
+    public void connectClient() {
         if(client == null) {
             try {
                 client = new Socket("localhost", 4711);
@@ -79,9 +77,8 @@ public class TCPClient extends Application {
 
     /**
      * Send request to the TCP Server
-     * @param actionEvent on event action send request to TCP Server
      */
-    public void sendRequest(ActionEvent actionEvent) {
+    public void sendRequest() {
         try {
             OutputStream bOutputStream = client.getOutputStream();
             String sentMessage = "send";

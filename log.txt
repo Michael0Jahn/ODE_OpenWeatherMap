@@ -2,3 +2,12 @@ Client: connected to localhost/127.0.0.1
 Client: received 1 Bytes from Server
 Client: sent some Bytes to Server
 Client: received 463 Bytes from Server
+Client: connected to localhost/127.0.0.1
+Client: received 1 Bytes from Server
+Client: sent some Bytes to Server
+Client: received 496 Bytes from Server
+Client: connected to localhost/127.0.0.1
+Client: received 1 Bytes from Server
+Client: sent some Bytes to Server
+Client: received 497 Bytes from Server
+Connection to Server established

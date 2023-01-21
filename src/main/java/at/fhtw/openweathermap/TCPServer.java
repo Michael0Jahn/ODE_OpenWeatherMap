@@ -10,7 +10,7 @@ import java.net.URL;
  * TCP Server
  */
 public class TCPServer {
-    private static ServerSocket server;
+    public static ServerSocket server;
 
     /**
      * Main method
@@ -24,7 +24,7 @@ public class TCPServer {
     /**
      * Startup the TCP Server
      */
-    private static void startServer() {
+    public static void startServer() {
         System.out.println("Server: starting up server");
         try {
             server = new ServerSocket(4711);
@@ -39,7 +39,7 @@ public class TCPServer {
      * Read data from external source via API Key and send it to the TCP Client.
      *
      */
-    private static void runServer() {
+    public static void runServer() {
         try {
 
             OutputStream bOutputStream;
